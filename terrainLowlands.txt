@@ -1,0 +1,4 @@
+Region 		MinHt	MaxHt	Entropy	Percent Likelihood	ConnectTo
+Hills		25		40		30		75		0			0,0,1,2
+Plains		0		16		400		5		0			0,1,1,2
+Ponds		-70		-50		600		3		100			0,1,2,2

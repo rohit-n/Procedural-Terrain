@@ -1,0 +1,85 @@
+Procedural Terrain Generation
+
+Joseph Dombrowski - Terrain Logic
+Rohit Nirmal - Rendering
+
+Intro:
+This was our final project in our graduate Computer Graphics class for Fall 2011 at the University of Houston.
+
+Compiling:
+This code uses the SDL development libraries, and requires SDL.dll to run on Windows. Get both at libsdl.org.
+You also need the OpenGL and GLU libraries, but most computers with graphics drivers should have these.
+The makefiles assume g++ is installed, but the program has been tested with Visual Studio 2010, and should
+compile as long as the paths to the libary are consistent with the #includes.
+
+Run the makefile for your specific platform once you have the required dependencies.
+
+Usage:
+
+Open the settings.ini file to set your resolution and whether you want the program to run in fullscreen mode.
+Change the terrainDim for different size terrain. Higher numbers result in higher detail terrain at the cost
+of greater time to generate the terrain and rendering performance. Change the minRegions and maxRegions to 
+change the variance of the terrain. Finally, change terrainType to one of the names of the text files supplied,
+such as General, Highlands, Lowlands, Water, etc.
+
+Run the executable to generate the terrain. Depending on your computer and the size of the terrain being generated,
+this can take a while. For quick and decent results, I recommend a terrainDim of 512.
+
+Running the executable in the command-line will show progress bars on generating the terrain.
+
+Controls:
+
+W - Move forward
+S - Move Back
+A - Move Left
+D - Move Right
+Space - Move Up
+
+Mouse - Look around
+
+Shift - Hold to move faster
+
+X - wireframe
+
+1 - View default terrain coloring. On by default.
+2 - View region based terrain coloring.
+3 - View height based terrain coloring.
+4 - View "enabled" points after subdividing terrain as a quadtree.
+5 - View simplified terrain after subdividing terrain as a quadtree.
+
+R - Generate another terrain. There's no loading bar except in the console.
+
+N - Show terrain generation as a series of steps.
+
+Escape - Quit the program.
+
+Simplification:
+
+The program includes a quadtree simplification method that I copied from here:
+http://www.gamasutra.com/view/feature/3434/continuous_lod_terrain_meshing_.php
+
+Read that if you want more information on how it works. If you want to tweak how many
+triangles should be removed, change the "error" global variable at the top. Higher
+values mean the terrain is simplified even more. Make it too high and you'll end up with
+a flat square terrain.
+
+Because my simplification method relies on the terrain being represented as a quadtree,
+terrainDim MUST be a power of two plus one, such as 129, 257, 513, 1025, etc.
+
+Issues:
+-Simplification causes cracks to form between high and low resolution terrain.
+I have the method removeCracks() to fix it, but it doesn't completely do the job.
+-Compiles, but doesn't really work on Ubuntu, the only Linux distribution I tested.
+		-SDL_WarpMouse makes the camera impossible to use, even though I have the
+		checkForCentered variable that's supposed to fix this. An quick solution is to
+		comment out SDL_WarpMouse, but it will be easy for the user to lose focus in windowed
+		mode.
+		-glColor doesn't seem to work when GL_LIGHT is enabled, but does in Windows.
+		-The settings file for the chosen terrain type will sometimes not be found, causing a crash.
+-Compiling with g++ will sometimes cause some corners of the terrain to have crazy high
+or low heights, but compiling with Visual Studio causes no such issue.
+
+To Do:
+-Water rendering.
+-Textures.
+-Saving terrains.
