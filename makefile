@@ -1,20 +1,20 @@
 CC=g++
 CFLAGS=-O3
 OBJECTS=glVector3.o terrain.o camera.o
-LIBS = -lmingw32 -lSDLmain -lSDL -lOpengl32 -lglu32
+LIBS = -lSDL -lGL -lGLU
 
 all:    terrain
-terrain:  $(OBJECTS) 
+terrain: $(OBJECTS) 
 	$(CC) src/main.cpp $(OBJECTS) $(LIBS) $(CFLAGS) -o main
         
-terrain.o:
+terrain.o: src/terrain.cpp src/terrain.h
 	$(CC) -c src/terrain.cpp $(CFLAGS)
        
-camera.o:
+camera.o: src/camera.cpp src/camera.h
 	$(CC) -c src/camera.cpp $(CFLAGS)
 	   
-glVector3.o:
+glVector3.o: src/glVector3.cpp src/glVector3.h
 	$(CC) -c src/glVector3.cpp $(CFLAGS)
 	
 clean:
-	del *.o main.exe
+	rm *.o main
