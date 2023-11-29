@@ -56,7 +56,7 @@ Escape - Quit the program.
 Simplification:
 
 The program includes a quadtree simplification method that I copied from here:
-http://www.gamasutra.com/view/feature/3434/continuous_lod_terrain_meshing_.php
+https://www.gamedeveloper.com/programming/continuous-lod-terrain-meshing-using-adaptive-quadtrees
 
 Read that if you want more information on how it works. If you want to tweak how many
 triangles should be removed, change the "error" global variable at the top. Higher
